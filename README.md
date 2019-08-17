@@ -1,1 +1,1 @@
-# ultimate-cycle
+#[ModKit Wiki](../../wiki)
