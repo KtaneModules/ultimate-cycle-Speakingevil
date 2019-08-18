@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -71,7 +71,7 @@
 				<div class="page-content">
 				<h4>S: Playfair Cipher</h4>
 				<p><small><ul>The indexing of the lists start at zero.<li>The number of rotations, starting from north, of the <strong>next</strong> dial corresponds to which of the words in the lists below is the keyword for this cipher.</li>
-				       <li><ul><li>If there are less than three unique ports on the bomb, use the keyword from List A.</li>
+				       <li><ul><li>If there are less than three unique* ports on the bomb, use the keyword from List A.</li>
 					           <li>Otherwise, use the keyword from List B.</li></ul></li>
 				       <li>The keyword gives the first ten letters of the keysquare in reading order.</li>
 					   <li>The remaining 15 letters fill the rest of the keysquare in alphabetical order, excluding X, which is never used.</li>
@@ -79,7 +79,8 @@
 				       <li>Each pair of letters is altered:
 					       <ul><li>If both letters belong to the same row of the keysquare, shift both letters one space to the right along the row.</li>
 						       <li>If both letters belong to the same column of the keysquare, shift both letters once space down the column.</li>
-							   <li>Otherwise, the letters lie on diagonally opposite corners of a rectangle, the encrypted pair consists of the letters in the horizontally opposite corners from the original pair.</li></ul></li></ul></small></p>
+							   <li>Otherwise, the letters lie on diagonally opposite corners of a rectangle, the encrypted pair consists of the letters in the horizontally opposite corners from the original pair.</li></ul></li>
+							   *A port is unique if there is only one of its type on the bomb.</ul></small></p>
 				<p><strong>List A: ALGORITHMS, AUTHORIZED, BLUEPRINTS, DESPICABLY, FORMIDABLE, HYPERBOLIC, IMPORTANCE, LABYRINTHS</strong></p>
 				<p><strong>List B: WANDERLUST, VANQUISHED, ULTRASONIC, SCRAMBLING, PRECAUTION, OSTRACIZED, METHODICAL, MAGNITUDES</strong></p>
 				<p></p>
@@ -114,7 +115,7 @@
 				   <ul>The indexing of the lists start at zero.
 				       <li>If the last dial is pointing NW, use the keyword corresponding to twice the number of 45&deg; rotations, starting from north, of the seventh dial.</li>
 					   <li>Otherwise, use the keyword corresponding to the sum of the numbers of 45&deg; rotations, starting from north, of the two dials adjacent to this one.</li></ul></small></p>
-				<p><strong>List A: AEON, COPY, ENDS, GOOD, IOTA, KILO, MARK, ONCE, QUIT, SYNC, UNDO, WORK, YEAR</strong></p>
+				<p><strong>List A: AEON, COPY, EACH, GOOD, IOTA, KILO, MARK, ONCE, QUIT, SYNC, UNDO, WORK, YEAR</strong></p>
 				<p><strong>List B: BUSY, DICE, FAUX, HUSK, JUKE, LOCI, NAME, PUSH, RISE, TASK, VOID, XYST, ZOOM</strong></p>
 				<p>The alphabetic positions of the letters in the keyword modulo 26 form the entries of a 2x2 square keymatrix in reading order.
 				<br>The word to be enciphered is broken into four pairs of letters and their alphabetic positions modulo 26 form entries in 2x1 vectors.
