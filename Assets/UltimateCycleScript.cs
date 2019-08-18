@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Linq;
@@ -23,7 +23,7 @@ public class UltimateCycleScript : MonoBehaviour
     private string[][] playkeys = new string[2][] { new string[8] { "ALGORITHMS", "AUTHORIZED", "BLUEPRINTS", "DESPICABLY", "FORMIDABLE", "HYPERBOLIC", "IMPORTANCE", "LABYRINTHS" }
                                                , new string[8] { "MAGNITUDES", "METHODICAL", "OSTRACIZED", "PRECAUTION", "SCRAMBLING", "ULTRASONIC", "VANQUISHED", "WANDERLUST"} };
     private string[] playskip = new string[4] { "XX", "XZ", "ZX", "ZZ" };
-    private string[][] hillkeys = new string[2][] { new string[13] { "AEON", "COPY", "ENDS", "GOOD", "IOTA", "KILO", "MARK", "ONCE", "QUIT", "SYNC", "UNDO", "WORK", "YEAR"}, new string[13] {"BUSY", "DICE", "FAUX", "HUSK", "JUKE", "LOCI", "NAME", "PUSH", "RISE", "TASK", "VOID", "XYST", "ZOOM" } };
+    private string[][] hillkeys = new string[2][] { new string[13] { "AEON", "COPY", "EACH", "GOOD", "IOTA", "KILO", "MARK", "ONCE", "QUIT", "SYNC", "UNDO", "WORK", "YEAR"}, new string[13] {"BUSY", "DICE", "FAUX", "HUSK", "JUKE", "LOCI", "NAME", "PUSH", "RISE", "TASK", "VOID", "XYST", "ZOOM" } };
     private string answer;
     private int[][] rot = new int[2][] { new int[8], new int[8] };
     private string[] ciphers = { "an Atbash", "a Caesar", "a Pigpen I", "a Substitution", "a Playfair", "a Railfence", "a Pigpen II", "a Hill" };
@@ -476,7 +476,7 @@ public class UltimateCycleScript : MonoBehaviour
                         logkey = " with keyword " + ciphkeys[1];
                         break;
                     case 3:
-                        logkey = " with keyword " + ciphkeys[2];
+                        logkey = " with cipher alphabet " + ciphkeys[2];
                         break;
                     default:
                         logkey = string.Empty;
@@ -498,7 +498,7 @@ public class UltimateCycleScript : MonoBehaviour
                         logkey = " with keyword " + ciphkeys[1];
                         break;
                     case 3:
-                        logkey = " with keyword " + ciphkeys[2];
+                        logkey = " with cipher alphabet " + ciphkeys[2];
                         break;
                     default:
                         logkey = string.Empty;
