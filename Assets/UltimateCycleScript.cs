@@ -103,7 +103,7 @@ public class UltimateCycleScript : MonoBehaviour
         }
         litplus = bomb.GetOnIndicators().Count() > bomb.GetOffIndicators().Count();
         evenbatt = bomb.GetBatteryCount() % 2 == 0;
-        uniqport = uniqportCount > 2;
+        uniqport = uniqportCount > 1;
         Reset();
     }
 
@@ -134,6 +134,7 @@ public class UltimateCycleScript : MonoBehaviour
                 }
                 else
                 {
+                    Audio.PlaySoundAtTransform("Error", transform);
                     GetComponent<KMBombModule>().HandleStrike();
                     disp.color = new Color32(255, 0, 0, 255);
                     Debug.LogFormat("[Ultimate Cycle #{0}]The submitted response was {1}: Resetting", moduleID, answer);
@@ -152,7 +153,11 @@ public class UltimateCycleScript : MonoBehaviour
             pressCount = 0;
             answer = string.Empty;
             int r = Random.Range(0, 200);
-            int[] fix = new int[3] { Random.Range(0, 4), Random.Range(4, 8), Random.Range(0, 8)};
+            int[] fix = new int[3] { Random.Range(0, 8), Random.Range(0, 8), Random.Range(0, 8)};
+            while(fix[1] == fix[0])
+            {
+                fix[1] = Random.Range(0, 8);
+            }
             while(fix[2] == fix[0] || fix[2] == fix[1])
             {
                 fix[2] = Random.Range(0, 8);
@@ -260,20 +265,20 @@ public class UltimateCycleScript : MonoBehaviour
                             {
                                 if (uniqport == true)
                                 {
-                                    keyword[1].Add(playkeys[1][rot[0][i + 1]][k].ToString());
+                                    keyword[1].Add(playkeys[1][rot[0][(i + 1) % 8]][k].ToString());
                                 }
                                 else
                                 {
-                                    keyword[1].Add(playkeys[0][rot[0][i + 1]][k].ToString());
+                                    keyword[1].Add(playkeys[0][rot[0][(i + 1) % 8]][k].ToString());
                                 }
                             }
                             if (uniqport == true)
                             {
-                                ciphkeys[0] = playkeys[1][rot[0][i + 1]];
+                                ciphkeys[0] = playkeys[1][rot[0][(i + 1) % 8]];
                             }
                             else
                             {
-                                ciphkeys[0] = playkeys[0][rot[0][i + 1]];
+                                ciphkeys[0] = playkeys[0][rot[0][(i + 1) % 8]];
                             }
                             for (int k = 0; k < 25; k++)
                             {
@@ -288,12 +293,13 @@ public class UltimateCycleScript : MonoBehaviour
                                 keytable[Mathf.FloorToInt(k / 5)][k % 5] = keyword[1][k];
                             }
                             int[] isx = new int[4];
-
+                            bool[] isdouble = new bool[4];
                             for (int k = 0; k < 4; k++)
                             {
                                 if ((ciphertext[j][i][2 * k] == ciphertext[j][i][2 * k + 1]) && (!playskip.Contains(ciphertext[j][i][2 * k].ToString() + ciphertext[j][i][2 * k + 1].ToString())))
                                 {                                   
-                                    digraphs[j][k] = ciphertext[j][i][2 * k].ToString() + "Z";
+                                    digraphs[j][k] = ciphertext[j][i][2 * k].ToString() + ciphertext[j][i][2 * k].ToString();
+                                    isdouble[k] = true;
                                 }
                                 else if(!playskip.Contains(ciphertext[j][i][2 * k].ToString() + ciphertext[j][i][2 * k + 1].ToString()))
                                 {
@@ -314,6 +320,10 @@ public class UltimateCycleScript : MonoBehaviour
                                         digraphs[j][k] = ciphertext[j][i][2 * k].ToString() + ciphertext[j][i][2 * k + 1].ToString();
                                     }
                                 }
+                                else
+                                {
+                                    digraphs[j][k] = ciphertext[j][i][2 * k].ToString() + ciphertext[j][i][2 * k + 1].ToString();
+                                }
                             }
                             for (int k = 0; k < 4; k++)
                             {
@@ -326,7 +336,12 @@ public class UltimateCycleScript : MonoBehaviour
                                     int[] y = new int[2] { keyword[1].IndexOf(digraphs[j][k][0].ToString()) % 5, keyword[1].IndexOf(digraphs[j][k][1].ToString()) % 5 };
                                     int[] x = new int[2] { Mathf.FloorToInt(keyword[1].IndexOf(digraphs[j][k][0].ToString()) / 5), Mathf.FloorToInt(keyword[1].IndexOf(digraphs[j][k][1].ToString()) / 5) };
                                     string[] z = new string[2];
-                                    if (x[0] == x[1])
+                                    if (isdouble[k] == true)
+                                    {
+                                        z[0] = keytable[4 - x[0]][4 - y[0]];
+                                        z[1] = z[0];
+                                    }
+                                    else if (x[0] == x[1])
                                     {
                                         z[0] = keytable[x[0]][(y[0] + 1) % 5];
                                         z[1] = keytable[x[1]][(y[1] + 1) % 5];
@@ -422,8 +437,12 @@ public class UltimateCycleScript : MonoBehaviour
                             break;
                         case 7:
                             int matrixkey = 0;
-                            int[] matrix = new int[4];                  
-                            if(i == 7)
+                            int[] matrix = new int[4]; 
+                            if(i == 0)
+                            {
+                                matrixkey = 2 * rot[0][1];
+                            }
+                            else if(i == 7)
                             {
                                 matrixkey = 2 * rot[0][6];
                             }
@@ -465,9 +484,10 @@ public class UltimateCycleScript : MonoBehaviour
             }
             Debug.LogFormat("[Ultimate Cycle #{0}]The final encrypted message was {1}", moduleID, ciphertext[0][8]);
             string logkey;
+            Debug.LogFormat("[Ultimate Cycle #{0}]The dial rotations were {1}", moduleID, string.Join(", ", roh));
             for (int i = 0; i < 8; i++)
             {
-                switch(rot[0][7 - i])
+                switch (rot[0][7 - i])
                 {
                     case 4:
                         logkey = " with keyword " + ciphkeys[0];
@@ -481,10 +501,9 @@ public class UltimateCycleScript : MonoBehaviour
                     default:
                         logkey = string.Empty;
                         break;
-                }              
+                }
                 Debug.LogFormat("[Ultimate Cycle #{0}]Step {2} was {3} cipher{4}; the encrypted message was {1}", moduleID, ciphertext[0][8 - i], 8 - i, ciphers[rot[0][7 - i]], logkey);
             }
-            Debug.LogFormat("[Ultimate Cycle #{0}]The dial rotations were {1}", moduleID, string.Join(", ", roh));
             Debug.LogFormat("[Ultimate Cycle #{0}]The deciphered message was {1}", moduleID, message[0][r]);
             Debug.LogFormat("[Ultimate Cycle #{0}]The response word was {1}", moduleID, message[1][r]);
             for (int i = 0; i < 8; i++)
