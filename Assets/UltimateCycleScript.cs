@@ -22,7 +22,6 @@ public class UltimateCycleScript : MonoBehaviour
     private string[][] monosubs = new string[2][] { new string[8] { "DOCUMENTARILYBFGHJKPQSVWXZ", "FLAMETHROWINGBCDJKPQSUVXYZ", "FLOWCHARTINGSBDEJKMPQUVXYZ", "HYDROMAGNETICBFJKLPQSUVWXZ", "METALWORKINGSBCDFHJPQUVXYZ", "MULTIBRANCHEDFGJKOPQSVWXYZ", "TROUBLEMAKINGCDFHJPQSVWXYZ", "UNPREDICTABLYFGHJKMOQSVWXZ" }, new string[8] { "BFGHJKPQSVWXZDOCUMENTARILY", "BCDJKPQSUVXYZFLAMETHROWING", "BDEJKMPQUVXYZFLOWCHARTINGS", "BFJKLPQSUVWXZHYDROMAGNETIC", "BCDFHJPQUVXYZMETALWORKINGS", "FGJKOPQSVWXYZMULTIBRANCHED", "CDFHJPQSVWXUZTROUBLEMAKING", "FGHJKMOQSVWXZUNPREDICTABLY"} };
     private string[][] playkeys = new string[2][] { new string[8] { "ALGORITHMS", "AUTHORIZED", "BLUEPRINTS", "DESPICABLY", "FORMIDABLE", "HYPERBOLIC", "IMPORTANCE", "LABYRINTHS" }
                                                , new string[8] { "MAGNITUDES", "METHODICAL", "OSTRACIZED", "PRECAUTION", "SCRAMBLING", "ULTRASONIC", "VANQUISHED", "WANDERLUST"} };
-    private string[] playskip = new string[4] { "XX", "XZ", "ZX", "ZZ" };
     private string[][] hillkeys = new string[2][] { new string[13] { "AEON", "COPY", "EACH", "GOOD", "IOTA", "KILO", "MARK", "ONCE", "QUIT", "SYNC", "UNDO", "WORK", "YEAR"}, new string[13] {"BUSY", "DICE", "FAUX", "HUSK", "JUKE", "LOCI", "NAME", "PUSH", "RISE", "TASK", "VOID", "XYST", "ZOOM" } };
     private string answer;
     private int[][] rot = new int[2][] { new int[8], new int[8] };
@@ -265,7 +264,7 @@ public class UltimateCycleScript : MonoBehaviour
                             {
                                 if (uniqport == true)
                                 {
-                                    keyword[1].Add(playkeys[1][rot[0][(i + 1) % 8]][k].ToString());
+                                    keyword[1].Add(playkeys[1][7 - (rot[0][(i + 1) % 8])][k].ToString());
                                 }
                                 else
                                 {
@@ -274,7 +273,7 @@ public class UltimateCycleScript : MonoBehaviour
                             }
                             if (uniqport == true)
                             {
-                                ciphkeys[0] = playkeys[1][rot[0][(i + 1) % 8]];
+                                ciphkeys[0] = playkeys[1][7 - (rot[0][(i + 1) % 8])];
                             }
                             else
                             {
@@ -296,23 +295,24 @@ public class UltimateCycleScript : MonoBehaviour
                             bool[] isdouble = new bool[4];
                             for (int k = 0; k < 4; k++)
                             {
-                                if ((ciphertext[j][i][2 * k] == ciphertext[j][i][2 * k + 1]) && (!playskip.Contains(ciphertext[j][i][2 * k].ToString() + ciphertext[j][i][2 * k + 1].ToString())))
+                                if ((ciphertext[j][i][2 * k] == ciphertext[j][i][2 * k + 1]))
                                 {                                   
                                     digraphs[j][k] = ciphertext[j][i][2 * k].ToString() + ciphertext[j][i][2 * k].ToString();
                                     isdouble[k] = true;
                                 }
-                                else if(!playskip.Contains(ciphertext[j][i][2 * k].ToString() + ciphertext[j][i][2 * k + 1].ToString()))
+                                else if(ciphertext[j][i][2 * k].ToString() + ciphertext[j][i][2 * k + 1].ToString() != "XX")
                                 {
                                     if (ciphertext[j][i][2 * k] == 'X' || ciphertext[j][i][2 * k + 1] == 'X')
                                     {
                                         isx[k] = (ciphertext[j][i].IndexOf('X') % 2) + 1;
+                                        isdouble[k] = true;
                                         if (isx[k] == 1)
                                         {
-                                            digraphs[j][k] = "Z" + ciphertext[j][i][2 * k + 1];
+                                            digraphs[j][k] = ciphertext[j][i][2 * k + 1].ToString() + ciphertext[j][i][2 * k + 1];
                                         }
                                         else
                                         {
-                                            digraphs[j][k] = ciphertext[j][i][2 * k] + "Z";
+                                            digraphs[j][k] = ciphertext[j][i][2 * k].ToString() + ciphertext[j][i][2 * k];
                                         }
                                     }
                                     else
@@ -320,14 +320,10 @@ public class UltimateCycleScript : MonoBehaviour
                                         digraphs[j][k] = ciphertext[j][i][2 * k].ToString() + ciphertext[j][i][2 * k + 1].ToString();
                                     }
                                 }
-                                else
-                                {
-                                    digraphs[j][k] = ciphertext[j][i][2 * k].ToString() + ciphertext[j][i][2 * k + 1].ToString();
-                                }
                             }
                             for (int k = 0; k < 4; k++)
                             {
-                                if (playskip.Contains(digraphs[j][k]))
+                                if (digraphs[j][k] == "XX")
                                 {
                                     ciph[j][i].Add(digraphs[j][k]);
                                 }
