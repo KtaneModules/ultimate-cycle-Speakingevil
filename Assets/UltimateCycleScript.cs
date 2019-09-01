@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Linq;
@@ -12,6 +12,8 @@ public class UltimateCycleScript : MonoBehaviour
     public KMBombInfo bomb;
     public List<KMSelectable> keys;
     public GameObject[] dials;
+    public Renderer[] leds;
+    public Material[] ledmat;
     public TextMesh[] dialText;
     public TextMesh disp;
 
@@ -19,17 +21,21 @@ public class UltimateCycleScript : MonoBehaviour
                                                  ,new string[200] { "PROGRESS", "ZYGOTENE", "QUARTICS", "LINKAGES", "QUICKEST", "ORDERING", "UNDOINGS", "ZUGZWANG", "YOKOZUNA", "COMMANDO", "GLOOMING", "TRICKIER", "GATEWAYS", "INCOMING", "ZYGOMATA", "FORMULAE", "BULKHEAD", "RELATION", "LINKWORK", "NANOTUBE", "MONOTONE", "YIELDING", "ILLUMINE", "KILOBYTE", "NANOBOTS", "QUINTICS", "ZIGZAGGY", "MONOMIAL", "ULTERIOR", "KNUCKLED", "UNDERWAY", "ULTRARED", "JUNKYARD", "QUADRANT", "TRIANGLE", "RELAYING", "NANOGRAM", "CONNECTS", "INDICATE", "BINORMAL", "DISCRETE", "JUNCTION", "KILOWATT", "ROTATION", "POSITRON", "DISPATCH", "ENCIPHER", "STANDOUT", "STOCKADE", "FINDINGS", "ADVANCED", "JOURNEYS", "STOPPING", "LANDMARK", "EQUATORS", "VICELESS", "DISCOVER", "JUNCTURE", "TOGETHER", "GARRISON", "WHATNOTS", "DIVISION", "TOGGLING", "YEASAYER", "VENOMOUS", "FORTUNES", "OBSERVED", "QUITTERS", "HUNKERED", "HOTHEADS", "TOMOGRAM", "KNOWABLE", "YEARNING", "TRIGONAL", "VOLITION", "DECRYPTS", "LABELING", "STARTING", "OCTUPLES", "ROTATORS", "POSITIVE", "BILLIONS", "WHATEVER", "FINALISE", "ENCRYPTS", "OBSTACLE", "ENCODING", "ADVOCATE", "CONQUERS", "EQUATION", "GATEPOST", "ILLUSION", "QUIRKISH", "NUMERATE", "STANDARD", "POSTSYNC", "HUNTRESS", "WINNABLE", "ZYMOLOGY", "ILLUSORY", "VOLATILE", "TOMAHAWK", "OCTANGLE", "ADVERTED", "ZIPPERED", "STOCCATA", "VENDETTA", "LINGERED", "FINNICKY", "JUDGMENT", "HUNDREDS", "ILLUDING", "KNOCKING", "WINGDING", "UNDERLIE", "LINEARLY", "TRIGGERS", "PROJECTS", "ALLOTYPE", "YIELDERS", "JIGSAWED", "KILOVOLT", "ALLOTTED", "RELATIVE", "PROPHASE", "COMPILER", "LIMITING", "NANOWATT", "YELLOWED", "MULCTING", "GATHERED", "WEAKENED", "WHATNESS", "HAZINESS", "REVOLVED", "ENTRANCE", "FORTRESS", "WHATSITS", "BULLHORN", "GARNERED", "INDIGOES", "LANGUAGE", "CIRCUITS", "VOLTAGES", "REVERSED", "JIMMYING", "DECEIVED", "QUARTILE", "GAUNTLET", "HAZARDED", "MULTIPLY", "ZYMOGRAM", "MULLIGAN", "ZIGGURAT", "ALLOCATE", "NUMERALS", "BULWARKS", "BINARIES", "INDIRECT", "REVEALED", "JOUSTING", "VICINITY", "QUADRICS", "MONOLITH", "ORDINALS", "KNOCKOUT", "NUMEROUS", "STOPWORD", "UNDERRUN", "DISPOSAL", "WEAPONED", "HUNTSMAN", "BULLETED", "ALTERING", "MONOGRAM", "POSSIBLE", "EQUALISE", "OBSTRUCT", "COMPUTER", "STANZAIC", "DECIMATE", "EQUIPPED", "BINOMIAL", "YEARLONG", "CIPHERED", "CONTINUE", "KINETICS", "FORWARDS", "ADDITION", "FINISHED", "GAMBLING", "MULTITON", "VOLUMING", "ULTIMATE", "HOTLINKS", "NUMBERED", "PROPHECY", "YOURSELF", "ULTRAHOT", "OBSCURED" }};
     private string[][] ciphertext = new string[2][] { new string[9], new string[9]};
     private string[][] pigpens = new string[2][] { new string[4] { "ASCUIVGT", "BKFOHQDM", "JWLYRZPX", "EN" }, new string[4] { "ASEWQYMU", "CDKLOPGH", "BTFXRZNV", "IJ"} };
-    private string[][] monosubs = new string[2][] { new string[8] { "DOCUMENTARILYBFGHJKPQSVWXZ", "FLAMETHROWINGBCDJKPQSUVXYZ", "FLOWCHARTINGSBDEJKMPQUVXYZ", "HYDROMAGNETICBFJKLPQSUVWXZ", "METALWORKINGSBCDFHJPQUVXYZ", "MULTIBRANCHEDFGJKOPQSVWXYZ", "TROUBLEMAKINGCDFHJPQSVWXYZ", "UNPREDICTABLYFGHJKMOQSVWXZ" }, new string[8] { "BFGHJKPQSVWXZDOCUMENTARILY", "BCDJKPQSUVXYZFLAMETHROWING", "BDEJKMPQUVXYZFLOWCHARTINGS", "BFJKLPQSUVWXZHYDROMAGNETIC", "BCDFHJPQUVXYZMETALWORKINGS", "FGJKOPQSVWXYZMULTIBRANCHED", "CDFHJPQSVWXUZTROUBLEMAKING", "FGHJKMOQSVWXZUNPREDICTABLY"} };
+    private string[][][] monosubs = new string[2][][] { new string[2][] { new string[8] { "DOCUMENTARILYBFGHJKPQSVWXZ", "FLAMETHROWINGBCDJKPQSUVXYZ", "FLOWCHARTINGSBDEJKMPQUVXYZ", "HYDROMAGNETICBFJKLPQSUVWXZ", "METALWORKINGSBCDFHJPQUVXYZ", "MULTIBRANCHEDFGJKOPQSVWXYZ", "TROUBLEMAKINGCDFHJPQSVWXYZ", "UNPREDICTABLYFGHJKMOQSVWXZ" }, new string[8] { "BFGHJKPQSVWXZDOCUMENTARILY", "BCDJKPQSUVXYZFLAMETHROWING", "BDEJKMPQUVXYZFLOWCHARTINGS", "BFJKLPQSUVWXZHYDROMAGNETIC", "BCDFHJPQUVXYZMETALWORKINGS", "FGJKOPQSVWXYZMULTIBRANCHED", "CDFHJPQSUVWXZTROUBLEMAKING", "FGHJKMOQSVWXZUNPREDICTABLY" } }
+                                                     ,  new string[2][] { new string[8] { "DOCUMENTARILYZXWVSQPKJHGFB", "FLAMETHROWINGZYXVUSQPKJDCB", "FLOWCHARTINGSZYXVUQPMKJEDB", "HYDROMAGNETICZXWVUSQPLKJFB", "METALWORKINGSZYXVUQPJHFDCB", "MULTIBRANCHEDZYXWVSQPOKJGF", "TROUBLEMAKINGZYXWVSQPJHFDC", "UNPREDICTABLYZXWVSQOMKJHGF" }, new string[8] { "ZXWVSQPKJHGFBDOCUMENTARILY", "ZYXVUSQPKJDCBFLAMETHROWING", "ZYXVUQPMKJEDBFLOWCHARTINGS", "ZXWVUSQPLKJFBHYDROMAGNETIC", "ZYXVUQPJHFDCBMETALWORKINGS", "ZYXWVSQPOKJGFMULTIBRANCHED", "ZXWVUSQPJHFDCTROUBLEMAKING", "ZXWVSQOMKJHGFUNPREDICTABLY" } } };
     private string[][] playkeys = new string[2][] { new string[8] { "ALGORITHMS", "AUTHORIZED", "BLUEPRINTS", "DESPICABLY", "FORMIDABLE", "HYPERBOLIC", "IMPORTANCE", "LABYRINTHS" }
-                                               , new string[8] { "MAGNITUDES", "METHODICAL", "OSTRACIZED", "PRECAUTION", "SCRAMBLING", "ULTRASONIC", "VANQUISHED", "WANDERLUST"} };
-    private string[][] hillkeys = new string[2][] { new string[13] { "AEON", "COPY", "EACH", "GOOD", "IOTA", "KILO", "MARK", "ONCE", "QUIT", "SYNC", "UNDO", "WORK", "YEAR"}, new string[13] {"BUSY", "DICE", "FAUX", "HUSK", "JUKE", "LOCI", "NAME", "PUSH", "RISE", "TASK", "VOID", "XYST", "ZOOM" } };
+                                                  , new string[8] { "WANDERLUST", "VANQUISHED", "ULTRASONIC", "SCRAMBLING", "PRECAUTION", "OSTRACIZED", "METHODICAL", "MAGNITUDES"} };
+    private string[][] squarekeys = new string[2][] { new string[8] { "AFTERSHOCK", "DESTROYING", "DUPLICATES", "FARSIGHTED", "GRACIOUSLY", "INFAMOUSLY", "NIGHTMARES", "PALINDROME" }, new string[8] { "DOWNSTREAM", "EMORDNILAP", "FLASHPOINT", "INTRODUCES", "PATHFINDER", "QUADRICEPS", "TRAPEZOIDS", "WAVERINGLY"} };
+    private string[][] hillkeys = new string[2][] { new string[15] { "AEON", "COPY", "EACH", "GOOD", "IOTA", "KILO", "MARK", "ONCE", "QUIT", "RIOT", "SYNC", "UNDO", "WORK", "YEAR", "ZEAL"}, new string[15] {"BOMB", "BUSY", "DICE", "FAUX", "HUSK", "JUKE", "LIMA", "LOCI", "NAME", "PUSH", "RISE", "TASK", "VOID", "XYST", "ZOOM" } };
     private string answer;
     private int[][] rot = new int[2][] { new int[8], new int[8] };
-    private string[] ciphers = { "an Atbash", "a Caesar", "a Pigpen I", "a Substitution", "a Playfair", "a Railfence", "a Pigpen II", "a Hill" };
-    private string[] ciphkeys = new string[3];
+    private string[] ciphers = { "an Atbash Logic", "a Caesar", "a Playfair", "a Pigpen", "a Two Square", "a Substitution", "a Hill", "a Permutation" };
+    private string[] ciphkeys = new string[4];
+    private bool[] ledlit = new bool[8];
     private bool uniqport = false;
     private bool evenbatt = false;
     private bool litplus = false;
+    private bool serial = false;
     private int pressCount;
     private bool moduleSolved;
 
@@ -102,7 +108,8 @@ public class UltimateCycleScript : MonoBehaviour
         }
         litplus = bomb.GetOnIndicators().Count() > bomb.GetOffIndicators().Count();
         evenbatt = bomb.GetBatteryCount() % 2 == 0;
-        uniqport = uniqportCount > 1;
+        uniqport = uniqportCount > 2;
+        serial = bomb.GetSerialNumberNumbers().Sum() > 9;
         Reset();
     }
 
@@ -147,6 +154,10 @@ public class UltimateCycleScript : MonoBehaviour
     {
 
         StopAllCoroutines();
+        for(int i = 0; i < 8; i++)
+        {
+            leds[i].material = ledmat[0];
+        }
         if (moduleSolved == false)
         {
             pressCount = 0;
@@ -157,7 +168,7 @@ public class UltimateCycleScript : MonoBehaviour
             {
                 fix[1] = Random.Range(0, 8);
             }
-            while(fix[2] == fix[0] || fix[2] == fix[1])
+            while (fix[2] == fix[0] || fix[2] == fix[1])
             {
                 fix[2] = Random.Range(0, 8);
             }
@@ -168,25 +179,33 @@ public class UltimateCycleScript : MonoBehaviour
             for(int i = 0; i < 8; i++)
             {
                 dialText[i].text = string.Empty;
+                if (Random.Range(0, 2) == 1)
+                {
+                    ledlit[i] = true;
+                }
+                else
+                {
+                    ledlit[i] = false;
+                }
                 rot[1][i] = rot[0][i];
                 if (i == fix[0])
                 {
-                    rot[0][i] = 4;
+                    rot[0][i] = 2 * Random.Range(1, 3);
                 }
                 else if (i == fix[1])
                 {
-                    rot[0][i] = 7;
+                    rot[0][i] = 6;
                 }
                 else if (i == fix[2])
                 {
-                    rot[0][i] = 3;
+                    rot[0][i] = 5;
                 }
                 else
                 {
                     rot[0][i] = Random.Range(0, 8);
-                    while(rot[0][i] == 4 || rot[0][i] == 7 || rot[0][i] == 3)
+                    while(rot[0][i] == 2 || rot[0][i] == 4 || rot[0][i] == 5 || rot[0][i] == 6)
                     {
-                        rot[0][i] = Random.Range(0, 7);
+                        rot[0][i] = Random.Range(0, 8);
                     }
                 }
                 roh[i] = rot[0][i].ToString();
@@ -198,65 +217,143 @@ public class UltimateCycleScript : MonoBehaviour
                     switch (rot[0][i])
                     {
                         case 0:
-                            string alph = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-                            List<string> atbash = new List<string> { };
-                            for (int k = 0; k < 26; k++)
+                            int[][] bits = new int[8][] { new int[2] { rot[0][0] % 2, rot[0][1] % 2 }, new int[2] { rot[0][2] % 2, rot[0][3] % 2 }, new int[2] { rot[0][4] % 2, rot[0][5] % 2 }, new int[2] { rot[0][6] % 2, rot[0][7] % 2 }, new int[2] { rot[0][0] % 2, rot[0][2] % 2 }, new int[2] { rot[0][4] % 2, rot[0][6] % 2 }, new int[2] { rot[0][1] % 2, rot[0][3] % 2 }, new int[2] { rot[0][5] % 2, rot[0][7] % 2 } };
+                            bool[] truth = new bool[8];
+                            for(int k = 0; k < 8; k++)
                             {
-                                if (k >= i && k <= 25 - i)
+                                if (ledlit[i] == true)
                                 {
-                                    atbash.Add(alph[25 - k].ToString());
+                                    ciph[j][i].Add("ZYXWVUTSRQPONMLKJIHGFEDCBA"["ABCDEFGHIJKLMNOPQRSTUVWXYZ".IndexOf(ciphertext[j][i][k])].ToString());
                                 }
                                 else
                                 {
-                                    atbash.Add(alph[k].ToString());
+                                    ciph[j][i].Add(ciphertext[j][i][k].ToString());
                                 }
-                            }
-                            for (int k = 0; k < 8; k++)
-                            {
-                                ciph[j][i].Add(atbash[alph.IndexOf(ciphertext[j][i][k])]);
-                            }
+                                switch (i)
+                                {
+                                    case 0:
+                                        truth[k] = bits[k][0] == 1 && bits[k][1] == 1;
+                                        break;
+                                    case 1:
+                                        truth[k] = bits[k][0] == 1 || bits[k][1] == 1;
+                                        break;
+                                    case 2:
+                                        truth[k] = bits[k][0] != bits[k][1];
+                                        break;
+                                    case 3:
+                                        truth[k] = !(bits[k][0] == 1 && bits[k][1] == 0);
+                                        break;
+                                    case 4:
+                                        truth[k] = bits[k][0] == 0 || bits[k][1] == 0;
+                                        break;
+                                    case 5:
+                                        truth[k] = bits[k][0] == 0 && bits[k][1] == 0;
+                                        break;
+                                    case 6:
+                                        truth[k] = bits[k][0] == bits[k][1];
+                                        break;
+                                    case 7:
+                                        truth[k] = !(bits[k][0] == 0 && bits[k][1] == 1);
+                                        break;
+                                }
+                                if(truth[k] == true)
+                                {
+                                    ciph[j][i][k] = "UFZWDBVCLSHIJMNQGXKYTEOPRA"["ABCDEFGHIJKLMNOPQRSTUVWXYZ".IndexOf(ciph[j][i][k])].ToString();
+                                }
+                                else
+                                {
+                                    ciph[j][i][k] = "NVYPWAHOQCMUGFDIRLTXBSKZJE"["ABCDEFGHIJKLMNOPQRSTUVWXYZ".IndexOf(ciph[j][i][k])].ToString();
+                                }
+                                if (ledlit[i] == false)
+                                {
+                                    ciph[j][i][k] = "ZYXWVUTSRQPONMLKJIHGFEDCBA"["ABCDEFGHIJKLMNOPQRSTUVWXYZ".IndexOf(ciph[j][i][k])].ToString();
+                                }
+                            }                      
                             break;
                         case 1:
                             for (int k = 0; k < 8; k++)
                             {
-                                ciph[j][i].Add("ABCDEFGHIJKLMNOPQRSTUVWXYZ"[("ABCDEFGHIJKLMNOPQRSTUVWXYZ".IndexOf(ciphertext[j][i][k]) + i + 1) % 26].ToString());
-                            }
-                            break;
-                        case 2:
-                            for (int k = 0; k < 8; k++)
-                            {
-                                for (int l = 0; l < 4; l++)
+                                if (ledlit[i] == true)
                                 {
-                                    if (pigpens[0][l].Contains(ciphertext[j][i][k].ToString()))
-                                    {
-                                        if (l == 3)
-                                        {
-                                            ciph[j][i].Add(pigpens[0][3][(pigpens[0][3].IndexOf(ciphertext[j][i][k]) + rot[0][k]) % 2].ToString());
-                                        }
-                                        else
-                                        {
-                                            ciph[j][i].Add(pigpens[0][l][(pigpens[0][l].IndexOf(ciphertext[j][i][k]) + rot[0][k]) % 8].ToString());
-                                        }
-                                    }
+                                    ciph[j][i].Add("ABCDEFGHIJKLMNOPQRSTUVWXYZ"[("ABCDEFGHIJKLMNOPQRSTUVWXYZ".IndexOf(ciphertext[j][i][k]) + rot[0][k] + i + 1) % 26].ToString());
+                                }
+                                else
+                                {
+                                    ciph[j][i].Add("ABCDEFGHIJKLMNOPQRSTUVWXYZ"[("ABCDEFGHIJKLMNOPQRSTUVWXYZ".IndexOf(ciphertext[j][i][k]) + 26 - rot[0][k] + i + 1) % 26].ToString());
                                 }
                             }
                             break;
                         case 3:
                             for (int k = 0; k < 8; k++)
                             {
-                                if (evenbatt == true)
+                                if (ledlit[i] == false)
                                 {
-                                    ciph[j][i].Add(monosubs[0][i]["ABCDEFGHIJKLMNOPQRSTUVWXYZ".IndexOf(ciphertext[j][i][k])].ToString());
-                                    ciphkeys[2] = monosubs[0][i];
+                                    for (int l = 0; l < 4; l++)
+                                    {
+                                        if (pigpens[0][l].Contains(ciphertext[j][i][k].ToString()))
+                                        {
+                                            if (l == 3)
+                                            {
+                                                ciph[j][i].Add(pigpens[0][3][(pigpens[0][3].IndexOf(ciphertext[j][i][k]) + rot[0][k]) % 2].ToString());
+                                            }
+                                            else
+                                            {
+                                                ciph[j][i].Add(pigpens[0][l][(pigpens[0][l].IndexOf(ciphertext[j][i][k]) + rot[0][k]) % 8].ToString());
+                                            }
+                                        }
+                                    }
                                 }
                                 else
                                 {
-                                    ciph[j][i].Add(monosubs[1][i]["ABCDEFGHIJKLMNOPQRSTUVWXYZ".IndexOf(ciphertext[j][i][k])].ToString());
-                                    ciphkeys[2] = monosubs[1][i];
+                                    for (int l = 0; l < 4; l++)
+                                    {
+                                        if (pigpens[1][l].Contains(ciphertext[j][i][k].ToString()))
+                                        {
+                                            if (l == 3)
+                                            {
+                                                ciph[j][i].Add(pigpens[1][3][(pigpens[1][3].IndexOf(ciphertext[j][i][k]) + rot[0][k]) % 2].ToString());
+                                            }
+                                            else
+                                            {
+                                                ciph[j][i].Add(pigpens[1][l][(pigpens[1][l].IndexOf(ciphertext[j][i][k]) + rot[0][k]) % 8].ToString());
+                                            }
+                                        }
+                                    }
                                 }
                             }
                             break;
-                        case 4:
+                        case 5:
+                            for (int k = 0; k < 8; k++)
+                            {
+                                if (ledlit[i] == false)
+                                {
+                                    if (evenbatt == true)
+                                    {
+                                        ciph[j][i].Add(monosubs[0][0][i]["ABCDEFGHIJKLMNOPQRSTUVWXYZ".IndexOf(ciphertext[j][i][k])].ToString());
+                                        ciphkeys[2] = monosubs[0][0][i];
+                                    }
+                                    else
+                                    {
+                                        ciph[j][i].Add(monosubs[0][1][i]["ABCDEFGHIJKLMNOPQRSTUVWXYZ".IndexOf(ciphertext[j][i][k])].ToString());
+                                        ciphkeys[2] = monosubs[0][1][i];
+                                    }
+                                }
+                                else
+                                {
+                                    if (evenbatt == true)
+                                    {
+                                        ciph[j][i].Add(monosubs[1][0][i]["ABCDEFGHIJKLMNOPQRSTUVWXYZ".IndexOf(ciphertext[j][i][k])].ToString());
+                                        ciphkeys[2] = monosubs[1][0][i];
+                                    }
+                                    else
+                                    {
+                                        ciph[j][i].Add(monosubs[1][1][i]["ABCDEFGHIJKLMNOPQRSTUVWXYZ".IndexOf(ciphertext[j][i][k])].ToString());
+                                        ciphkeys[2] = monosubs[1][1][i];
+                                    }
+                                }
+                            }
+                            break;
+                        case 2:
                             List<string>[] keyword = new List<string>[2] { new List<string> { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "Y", "Z" }, new List<string> { } };
                             string[][] keytable = new string[5][] { new string[5], new string[5], new string[5], new string[5], new string[5] };
                             string[][] digraphs = new string[2][] { new string[4], new string[4] };
@@ -264,16 +361,30 @@ public class UltimateCycleScript : MonoBehaviour
                             {
                                 if (uniqport == true)
                                 {
-                                    keyword[1].Add(playkeys[1][7 - (rot[0][(i + 1) % 8])][k].ToString());
+                                    if (ledlit[i] == true)
+                                    {
+                                        keyword[1].Add(playkeys[1][rot[0][(i + 1) % 8]][9 - k].ToString());
+                                    }
+                                    else
+                                    {
+                                        keyword[1].Add(playkeys[1][rot[0][(i + 1) % 8]][k].ToString());
+                                    }
                                 }
                                 else
                                 {
-                                    keyword[1].Add(playkeys[0][rot[0][(i + 1) % 8]][k].ToString());
+                                    if (ledlit[i] == true)
+                                    {
+                                        keyword[1].Add(playkeys[0][rot[0][(i + 1) % 8]][9 - k].ToString());
+                                    }
+                                    else
+                                    {
+                                        keyword[1].Add(playkeys[0][rot[0][(i + 1) % 8]][k].ToString());
+                                    }
                                 }
                             }
                             if (uniqport == true)
                             {
-                                ciphkeys[0] = playkeys[1][7 - (rot[0][(i + 1) % 8])];
+                                ciphkeys[0] = playkeys[1][rot[0][(i + 1) % 8]];
                             }
                             else
                             {
@@ -287,7 +398,7 @@ public class UltimateCycleScript : MonoBehaviour
                                 }
                                 else
                                 {
-                                    keyword[1].Add(keyword[0][k - 10]);
+                                    keyword[1].Add(keyword[0][k - 10]);                                    
                                 }
                                 keytable[Mathf.FloorToInt(k / 5)][k % 5] = keyword[1][k];
                             }
@@ -295,25 +406,25 @@ public class UltimateCycleScript : MonoBehaviour
                             bool[] isdouble = new bool[4];
                             for (int k = 0; k < 4; k++)
                             {
-                                if ((ciphertext[j][i][2 * k] == ciphertext[j][i][2 * k + 1]))
+                                if (ciphertext[j][i][2 * k] == ciphertext[j][i][2 * k + 1])
                                 {                                   
                                     digraphs[j][k] = ciphertext[j][i][2 * k].ToString() + ciphertext[j][i][2 * k].ToString();
                                     isdouble[k] = true;
                                 }
                                 else if(ciphertext[j][i][2 * k].ToString() + ciphertext[j][i][2 * k + 1].ToString() != "XX")
                                 {
-                                    if (ciphertext[j][i][2 * k] == 'X' || ciphertext[j][i][2 * k + 1] == 'X')
+                                    if (ciphertext[j][i][2 * k] == 'X')
                                     {
-                                        isx[k] = (ciphertext[j][i].IndexOf('X') % 2) + 1;
+                                        isx[k] = 1;
                                         isdouble[k] = true;
-                                        if (isx[k] == 1)
-                                        {
-                                            digraphs[j][k] = ciphertext[j][i][2 * k + 1].ToString() + ciphertext[j][i][2 * k + 1];
-                                        }
-                                        else
-                                        {
-                                            digraphs[j][k] = ciphertext[j][i][2 * k].ToString() + ciphertext[j][i][2 * k];
-                                        }
+                                        digraphs[j][k] = ciphertext[j][i][2 * k + 1].ToString() + ciphertext[j][i][2 * k + 1];                                        
+
+                                    }
+                                    else if (ciphertext[j][i][2 * k + 1] == 'X')
+                                    {
+                                        isx[k] = 2;
+                                        isdouble[k] = true;
+                                        digraphs[j][k] = ciphertext[j][i][2 * k].ToString() + ciphertext[j][i][2 * k];
                                     }
                                     else
                                     {
@@ -325,7 +436,7 @@ public class UltimateCycleScript : MonoBehaviour
                             {
                                 if (digraphs[j][k] == "XX")
                                 {
-                                    ciph[j][i].Add(digraphs[j][k]);
+                                    ciph[j][i].Add("XX");
                                 }
                                 else
                                 {
@@ -370,82 +481,167 @@ public class UltimateCycleScript : MonoBehaviour
                                 }
                             }
                             break;
-                        case 5:
-                            ciph[j][i].Add(ciphertext[j][i][0].ToString());
-                            switch (i % 4)
-                            {
-                                case 0:
-                                    ciph[j][i].Add(ciphertext[j][i][2].ToString());
-                                    ciph[j][i].Add(ciphertext[j][i][4].ToString());
-                                    ciph[j][i].Add(ciphertext[j][i][6].ToString());
-                                    ciph[j][i].Add(ciphertext[j][i][1].ToString());
-                                    ciph[j][i].Add(ciphertext[j][i][3].ToString());
-                                    ciph[j][i].Add(ciphertext[j][i][5].ToString());
-                                    ciph[j][i].Add(ciphertext[j][i][7].ToString());
-                                    break;
-                                case 1:
-                                    ciph[j][i].Add(ciphertext[j][i][4].ToString());
-                                    ciph[j][i].Add(ciphertext[j][i][1].ToString());
-                                    ciph[j][i].Add(ciphertext[j][i][3].ToString());
-                                    ciph[j][i].Add(ciphertext[j][i][5].ToString());
-                                    ciph[j][i].Add(ciphertext[j][i][7].ToString());
-                                    ciph[j][i].Add(ciphertext[j][i][2].ToString());
-                                    ciph[j][i].Add(ciphertext[j][i][6].ToString());
-                                    break;
-                                case 2:
-                                    ciph[j][i].Add(ciphertext[j][i][6].ToString());
-                                    ciph[j][i].Add(ciphertext[j][i][1].ToString());
-                                    ciph[j][i].Add(ciphertext[j][i][5].ToString());
-                                    ciph[j][i].Add(ciphertext[j][i][7].ToString());
-                                    ciph[j][i].Add(ciphertext[j][i][2].ToString());
-                                    ciph[j][i].Add(ciphertext[j][i][4].ToString());
-                                    ciph[j][i].Add(ciphertext[j][i][3].ToString());
-                                    break;
-                                case 3:
-                                    ciph[j][i].Add(ciphertext[j][i][1].ToString());
-                                    ciph[j][i].Add(ciphertext[j][i][7].ToString());
-                                    ciph[j][i].Add(ciphertext[j][i][2].ToString());
-                                    ciph[j][i].Add(ciphertext[j][i][6].ToString());
-                                    ciph[j][i].Add(ciphertext[j][i][3].ToString());
-                                    ciph[j][i].Add(ciphertext[j][i][5].ToString());
-                                    ciph[j][i].Add(ciphertext[j][i][4].ToString());
-                                    break;
-                            }
-                            break;
-                        case 6:
+                        case 7:
+                            List<int> availableVals = new List<int> { 0, 1, 2, 3, 4, 5, 6, 7 };
+                            List<int> init = new List<int> { };
                             for (int k = 0; k < 8; k++)
                             {
-                                for (int l = 0; l < 4; l++)
+                                if (availableVals.Contains(rot[0][k]))
                                 {
-                                    if (pigpens[1][l].Contains(ciphertext[j][i][k].ToString()))
+                                    init.Add(rot[0][k]);
+                                    availableVals.Remove(rot[0][k]);
+                                }
+                                else if (ledlit[k] == true)
+                                {
+                                    init.Add(availableVals[availableVals.Count() - 1]);
+                                    availableVals.RemoveAt(availableVals.Count() - 1);
+                                }
+                                else
+                                {
+                                    init.Add(availableVals[0]);
+                                    availableVals.RemoveAt(0);
+                                }
+                            }
+                            for(int k = 0; k < 8; k++)
+                            {
+                                if(ledlit[i] == true)
+                                {
+                                    ciph[j][i].Add(ciphertext[j][i][init.IndexOf((k + i) % 8)].ToString());
+                                }
+                                else
+                                {
+                                    ciph[j][i].Add(ciphertext[j][i][init.IndexOf((7 - k + i) % 8)].ToString());
+                                }
+                            }
+                            break;
+                        case 4:
+                            List<string>[][] sqwords = new List<string>[2][] {new List<string>[2] { new List<string> { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "Y", "Z" }, new List<string> { } }, new List<string>[2] {new List<string> { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "Y", "Z" }, new List<string> { } } };
+                            string[][][] sqtable = new string[2][][] { new string[5][] { new string[5], new string[5], new string[5], new string[5], new string[5] }, new string[5][] { new string[5], new string[5], new string[5], new string[5], new string[5] } };
+                            string[][] sqgraphs = new string[2][] { new string[4], new string[4] };
+                            ciphkeys[0] = squarekeys[0][i];
+                            ciphkeys[3] = squarekeys[1][rot[0][(i + 7) % 8]];
+                            for(int k = 0; k < 10; k++)
+                            {
+                                if (serial == true)
+                                {
+                                    sqwords[0][1].Add(squarekeys[0][i][k].ToString());
+                                    sqwords[1][1].Add(squarekeys[1][rot[0][(i + 7) % 8]][k].ToString());
+                                    sqwords[0][0].Remove(squarekeys[0][i][k].ToString());
+                                    sqwords[1][0].Remove(squarekeys[1][rot[0][(i + 7) % 8]][k].ToString());
+                                }
+                                else
+                                {
+                                    sqwords[1][1].Add(squarekeys[1][i][k].ToString());
+                                    sqwords[0][1].Add(squarekeys[0][rot[0][(i + 7) % 8]][k].ToString());
+                                    sqwords[1][0].Remove(squarekeys[1][i][k].ToString());
+                                    sqwords[0][0].Remove(squarekeys[0][rot[0][(i + 7) % 8]][k].ToString());
+                                }
+                            }   
+                            for(int k = 0; k < 15; k++)
+                            {
+                                for(int l = 0; l < 2; l++)
+                                {
+                                    sqwords[l][1].Add(sqwords[l][0][k]);
+                                }
+                            }
+                            for (int k = 0; k < 25; k++)
+                            {
+                                for (int l = 0; l < 2; l++)
+                                {
+                                    sqtable[l][Mathf.FloorToInt(k/5)][k % 5] = sqwords[l][1][k];
+                                }
+                            }
+                            int[] issqx = new int[4];
+                            for (int k = 0; k < 4; k++)
+                            {
+                                if (ciphertext[j][i][2 * k] == 'X' || ciphertext[j][i][2 * k + 1] == 'X')
+                                {
+                                    issqx[k] = (ciphertext[j][i].IndexOf('X') % 2) + 1;
+                                    if (issqx[k] == 1)
                                     {
-                                        if (l == 3)
+                                        sqgraphs[j][k] = ciphertext[j][i][2 * k + 1].ToString() + ciphertext[j][i][2 * k + 1];
+                                    }
+                                    else
+                                    {
+                                        sqgraphs[j][k] = ciphertext[j][i][2 * k].ToString() + ciphertext[j][i][2 * k];
+                                    }
+                                }
+                                else
+                                {
+                                    sqgraphs[j][k] = ciphertext[j][i][2 * k].ToString() + ciphertext[j][i][2 * k + 1].ToString();
+                                }
+                                
+                            }
+                            for(int k = 0; k < 4; k++)
+                            {
+                                if(sqgraphs[j][k] == "XX")
+                                {
+                                    ciph[j][i].Add("XX");
+                                }
+                                else
+                                {
+                                    int[] y = new int[2] { sqwords[0][1].IndexOf(sqgraphs[j][k][0].ToString()) % 5, sqwords[1][1].IndexOf(sqgraphs[j][k][1].ToString()) % 5 };
+                                    int[] x = new int[2] { Mathf.FloorToInt(sqwords[0][1].IndexOf(sqgraphs[j][k][0].ToString()) / 5), Mathf.FloorToInt(sqwords[1][1].IndexOf(sqgraphs[j][k][1].ToString()) / 5) };
+                                    string[] z = new string[2];
+                                    if (ledlit[i] == true)
+                                    {
+                                        if (x[0] == x[1])
                                         {
-                                            ciph[j][i].Add(pigpens[1][3][(pigpens[1][3].IndexOf(ciphertext[j][i][k]) + rot[0][k]) % 2].ToString());
+                                            z[0] = sqtable[0][x[0]][(y[0] + 1) % 5];
+                                            z[1] = sqtable[1][x[1]][(y[1] + 1) % 5];
                                         }
                                         else
                                         {
-                                            ciph[j][i].Add(pigpens[1][l][(pigpens[1][l].IndexOf(ciphertext[j][i][k]) + rot[0][k]) % 8].ToString());
+                                            z[0] = sqtable[1][x[0]][y[1]];
+                                            z[1] = sqtable[0][x[1]][y[0]];
                                         }
+                                    }
+                                    else
+                                    {
+                                        if (y[0] == y[1])
+                                        {
+                                            z[0] = sqtable[0][(x[0] + 1) % 5][y[0]];
+                                            z[1] = sqtable[1][(x[1] + 1) % 5][y[1]];
+                                        }
+                                        else
+                                        {
+                                            z[0] = sqtable[0][x[0]][y[1]];
+                                            z[1] = sqtable[1][x[1]][y[0]];
+                                        }
+                                    }
+                                    if (issqx[k] == 1)
+                                    {
+                                        ciph[j][i].Add("X");
+                                        ciph[j][i].Add(z[1]);
+                                    }
+                                    else if(issqx[k] == 2)
+                                    {
+                                        ciph[j][i].Add(z[0]);
+                                        ciph[j][i].Add("X");
+                                    }
+                                    else
+                                    {
+                                        ciph[j][i].Add(z[0]);
+                                        ciph[j][i].Add(z[1]);
                                     }
                                 }
                             }
                             break;
-                        case 7:
+                        case 6:
                             int matrixkey = 0;
                             int[] matrix = new int[4]; 
                             if(i == 0)
                             {
-                                matrixkey = 2 * rot[0][1];
+                                matrixkey = rot[0][1] + 6;
                             }
                             else if(i == 7)
                             {
-                                matrixkey = 2 * rot[0][6];
+                                matrixkey = rot[0][6] + 6;
                             }
                             else
                             {
                                 matrixkey = rot[0][i - 1] + rot[0][i + 1];
-                            }                          
+                            }
                             for(int k = 0; k < 4; k++)
                             {
                                 if (litplus == true)
@@ -456,6 +652,12 @@ public class UltimateCycleScript : MonoBehaviour
                                 {
                                     matrix[k] = "ZABCDEFGHIJKLMNOPQRSTUVWXY".IndexOf(hillkeys[1][matrixkey][k]);
                                 }
+                            }
+                            if(ledlit[i] == true)
+                            {
+                                int transpose = matrix[1];
+                                matrix[1] = matrix[2];
+                                matrix[2] = transpose;
                             }
                             if (litplus == true)
                             {
@@ -480,25 +682,37 @@ public class UltimateCycleScript : MonoBehaviour
             }
             Debug.LogFormat("[Ultimate Cycle #{0}]The final encrypted message was {1}", moduleID, ciphertext[0][8]);
             string logkey;
+            string litciph;
             Debug.LogFormat("[Ultimate Cycle #{0}]The dial rotations were {1}", moduleID, string.Join(", ", roh));
             for (int i = 0; i < 8; i++)
             {
                 switch (rot[0][7 - i])
                 {
-                    case 4:
+                    case 2:
                         logkey = " with keyword " + ciphkeys[0];
                         break;
-                    case 7:
+                    case 4:
+                        logkey = " with keywords " + ciphkeys[0] + " and " + ciphkeys[3];
+                        break;
+                    case 6:
                         logkey = " with keyword " + ciphkeys[1];
                         break;
-                    case 3:
+                    case 5:
                         logkey = " with cipher alphabet " + ciphkeys[2];
                         break;
                     default:
                         logkey = string.Empty;
                         break;
                 }
-                Debug.LogFormat("[Ultimate Cycle #{0}]Step {2} was {3} cipher{4}; the encrypted message was {1}", moduleID, ciphertext[0][8 - i], 8 - i, ciphers[rot[0][7 - i]], logkey);
+                if(ledlit[7 - i] == true)
+                {
+                    litciph = "*";
+                }
+                else
+                {
+                    litciph = string.Empty;
+                }
+                Debug.LogFormat("[Ultimate Cycle #{0}]Step {2} was {3}{5} cipher{4}; the encrypted message was {1}", moduleID, ciphertext[0][8 - i], 8 - i, ciphers[rot[0][7 - i]], logkey, litciph);
             }
             Debug.LogFormat("[Ultimate Cycle #{0}]The deciphered message was {1}", moduleID, message[0][r]);
             Debug.LogFormat("[Ultimate Cycle #{0}]The response word was {1}", moduleID, message[1][r]);
@@ -506,20 +720,31 @@ public class UltimateCycleScript : MonoBehaviour
             {
                 switch (rot[0][i])
                 {
-                    case 4:
+                    case 2:
                         logkey = " with keyword " + ciphkeys[0];
                         break;
-                    case 7:
+                    case 4:
+                        logkey = " with keywords " + ciphkeys[0] + " and " + ciphkeys[3];
+                        break;
+                    case 6:
                         logkey = " with keyword " + ciphkeys[1];
                         break;
-                    case 3:
+                    case 5:
                         logkey = " with cipher alphabet " + ciphkeys[2];
                         break;
                     default:
                         logkey = string.Empty;
                         break;
                 }
-                Debug.LogFormat("[Ultimate Cycle #{0}]Step {2} was {3} cipher{4}; the encrypted response was {1}", moduleID, ciphertext[1][i + 1], i + 1, ciphers[rot[0][i]], logkey);
+                if (ledlit[i] == true)
+                {
+                    litciph = "*";
+                }
+                else
+                {
+                    litciph = string.Empty;
+                }
+                Debug.LogFormat("[Ultimate Cycle #{0}]Step {2} was {3}{5} cipher{4}; the encrypted response was {1}", moduleID, ciphertext[1][i + 1], i + 1, ciphers[rot[0][i]], logkey, litciph);
             }
             Debug.LogFormat("[Ultimate Cycle #{0}]The correct response was {1}", moduleID, ciphertext[1][8]);
         }
@@ -599,21 +824,62 @@ public class UltimateCycleScript : MonoBehaviour
             }
             if (i < 7)
             {
+                if (i != 0)
+                {
+                    leds[i - 1].material = ledmat[0];
+                }
+                leds[i].material = ledmat[1];
                 yield return new WaitForSeconds(0.25f);
             }
         }
         if (moduleSolved == true)
         {
-            for(int i = 0; i < 8; i++)
+            for (int i = 0; i < 8; i++)
             {
                 dialText[i].color = new Color32(255, 255, 255, 255);
             }
             Audio.PlayGameSoundAtTransform(KMSoundOverride.SoundEffect.CorrectChime, transform);
             GetComponent<KMBombModule>().HandlePass();
+            leds[6].material = ledmat[0];
+            StartCoroutine(Solveled());
+        }
+        else
+        {
+            for (int i = 0; i < 8; i++)
+            {
+                if (ledlit[i] == true)
+                {
+                    leds[i].material = ledmat[1];
+                }
+                else
+                {
+                    leds[i].material = ledmat[0];
+                }
+            }
         }
         disp.text = string.Empty;
         disp.color = new Color32(255, 255, 255, 255);
         yield return null;
+    }
+
+    private IEnumerator Solveled()
+    {
+        for(int i = 0; i < 16; i++)
+        {
+            if (i < 8)
+            {
+                leds[i].material = ledmat[1];
+            }
+            else
+            {
+                leds[i - 8].material = ledmat[0];
+            }
+            yield return new WaitForSeconds(0.125f);
+            if(i == 15)
+            {
+                i = -1;
+            }
+        }
     }
 #pragma warning disable 414
     private string TwitchHelpMessage = "!{0} QWERTYUI [Inputs letters] | !{0} cancel [Deletes inputs]";
@@ -624,7 +890,7 @@ public class UltimateCycleScript : MonoBehaviour
         if (command.ToLowerInvariant() == "cancel")
         {
             yield return null;
-            KeyPress(26);
+            keys[26].OnInteract();
         }
         else
         {
@@ -638,7 +904,7 @@ public class UltimateCycleScript : MonoBehaviour
             command = command.Replace(" ", string.Empty);
             foreach (char letter in command)
             {
-                KeyPress("QWERTYUIOPASDFGHJKLZXCVBNM".IndexOf(letter));
+                keys["QWERTYUIOPASDFGHJKLZXCVBNM".IndexOf(letter)].OnInteract();
                 yield return new WaitForSeconds(0.125f);
             }
         }
