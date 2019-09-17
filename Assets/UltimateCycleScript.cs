@@ -21,8 +21,8 @@ public class UltimateCycleScript : MonoBehaviour
                                                  ,new string[200] { "PROGRESS", "ZYGOTENE", "QUARTICS", "LINKAGES", "QUICKEST", "ORDERING", "UNDOINGS", "ZUGZWANG", "YOKOZUNA", "COMMANDO", "GLOOMING", "TRICKIER", "GATEWAYS", "INCOMING", "ZYGOMATA", "FORMULAE", "BULKHEAD", "RELATION", "LINKWORK", "NANOTUBE", "MONOTONE", "YIELDING", "ILLUMINE", "KILOBYTE", "NANOBOTS", "QUINTICS", "ZIGZAGGY", "MONOMIAL", "ULTERIOR", "KNUCKLED", "UNDERWAY", "ULTRARED", "JUNKYARD", "QUADRANT", "TRIANGLE", "RELAYING", "NANOGRAM", "CONNECTS", "INDICATE", "BINORMAL", "DISCRETE", "JUNCTION", "KILOWATT", "ROTATION", "POSITRON", "DISPATCH", "ENCIPHER", "STANDOUT", "STOCKADE", "FINDINGS", "ADVANCED", "JOURNEYS", "STOPPING", "LANDMARK", "EQUATORS", "VICELESS", "DISCOVER", "JUNCTURE", "TOGETHER", "GARRISON", "WHATNOTS", "DIVISION", "TOGGLING", "YEASAYER", "VENOMOUS", "FORTUNES", "OBSERVED", "QUITTERS", "HUNKERED", "HOTHEADS", "TOMOGRAM", "KNOWABLE", "YEARNING", "TRIGONAL", "VOLITION", "DECRYPTS", "LABELING", "STARTING", "OCTUPLES", "ROTATORS", "POSITIVE", "BILLIONS", "WHATEVER", "FINALISE", "ENCRYPTS", "OBSTACLE", "ENCODING", "ADVOCATE", "CONQUERS", "EQUATION", "GATEPOST", "ILLUSION", "QUIRKISH", "NUMERATE", "STANDARD", "POSTSYNC", "HUNTRESS", "WINNABLE", "ZYMOLOGY", "ILLUSORY", "VOLATILE", "TOMAHAWK", "OCTANGLE", "ADVERTED", "ZIPPERED", "STOCCATA", "VENDETTA", "LINGERED", "FINNICKY", "JUDGMENT", "HUNDREDS", "ILLUDING", "KNOCKING", "WINGDING", "UNDERLIE", "LINEARLY", "TRIGGERS", "PROJECTS", "ALLOTYPE", "YIELDERS", "JIGSAWED", "KILOVOLT", "ALLOTTED", "RELATIVE", "PROPHASE", "COMPILER", "LIMITING", "NANOWATT", "YELLOWED", "MULCTING", "GATHERED", "WEAKENED", "WHATNESS", "HAZINESS", "REVOLVED", "ENTRANCE", "FORTRESS", "WHATSITS", "BULLHORN", "GARNERED", "INDIGOES", "LANGUAGE", "CIRCUITS", "VOLTAGES", "REVERSED", "JIMMYING", "DECEIVED", "QUARTILE", "GAUNTLET", "HAZARDED", "MULTIPLY", "ZYMOGRAM", "MULLIGAN", "ZIGGURAT", "ALLOCATE", "NUMERALS", "BULWARKS", "BINARIES", "INDIRECT", "REVEALED", "JOUSTING", "VICINITY", "QUADRICS", "MONOLITH", "ORDINALS", "KNOCKOUT", "NUMEROUS", "STOPWORD", "UNDERRUN", "DISPOSAL", "WEAPONED", "HUNTSMAN", "BULLETED", "ALTERING", "MONOGRAM", "POSSIBLE", "EQUALISE", "OBSTRUCT", "COMPUTER", "STANZAIC", "DECIMATE", "EQUIPPED", "BINOMIAL", "YEARLONG", "CIPHERED", "CONTINUE", "KINETICS", "FORWARDS", "ADDITION", "FINISHED", "GAMBLING", "MULTITON", "VOLUMING", "ULTIMATE", "HOTLINKS", "NUMBERED", "PROPHECY", "YOURSELF", "ULTRAHOT", "OBSCURED" }};
     private string[][] ciphertext = new string[2][] { new string[9], new string[9]};
     private string[][] pigpens = new string[2][] { new string[4] { "ASCUIVGT", "BKFOHQDM", "JWLYRZPX", "EN" }, new string[4] { "ASEWQYMU", "CDKLOPGH", "BTFXRZNV", "IJ"} };
-    private string[][][] monosubs = new string[2][][] { new string[2][] { new string[8] { "DOCUMENTARILYBFGHJKPQSVWXZ", "FLAMETHROWINGBCDJKPQSUVXYZ", "FLOWCHARTINGSBDEJKMPQUVXYZ", "HYDROMAGNETICBFJKLPQSUVWXZ", "METALWORKINGSBCDFHJPQUVXYZ", "MULTIBRANCHEDFGJKOPQSVWXYZ", "TROUBLEMAKINGCDFHJPQSVWXYZ", "UNPREDICTABLYFGHJKMOQSVWXZ" }, new string[8] { "BFGHJKPQSVWXZDOCUMENTARILY", "BCDJKPQSUVXYZFLAMETHROWING", "BDEJKMPQUVXYZFLOWCHARTINGS", "BFJKLPQSUVWXZHYDROMAGNETIC", "BCDFHJPQUVXYZMETALWORKINGS", "FGJKOPQSVWXYZMULTIBRANCHED", "CDFHJPQSUVWXZTROUBLEMAKING", "FGHJKMOQSVWXZUNPREDICTABLY" } }
-                                                     ,  new string[2][] { new string[8] { "DOCUMENTARILYZXWVSQPKJHGFB", "FLAMETHROWINGZYXVUSQPKJDCB", "FLOWCHARTINGSZYXVUQPMKJEDB", "HYDROMAGNETICZXWVUSQPLKJFB", "METALWORKINGSZYXVUQPJHFDCB", "MULTIBRANCHEDZYXWVSQPOKJGF", "TROUBLEMAKINGZYXWVSQPJHFDC", "UNPREDICTABLYZXWVSQOMKJHGF" }, new string[8] { "ZXWVSQPKJHGFBDOCUMENTARILY", "ZYXVUSQPKJDCBFLAMETHROWING", "ZYXVUQPMKJEDBFLOWCHARTINGS", "ZXWVUSQPLKJFBHYDROMAGNETIC", "ZYXVUQPJHFDCBMETALWORKINGS", "ZYXWVSQPOKJGFMULTIBRANCHED", "ZXWVUSQPJHFDCTROUBLEMAKING", "ZXWVSQOMKJHGFUNPREDICTABLY" } } };
+    private string[][][] monosubs = new string[2][][] { new string[2][] { new string[8] { "DOCUMENTARILYBFGHJKPQSVWXZ", "FLAMETHROWINGBCDJKPQSUVXYZ", "FLOWCHARTINGSBDEJKMPQUVXYZ", "HYDROMAGNETICBFJKLPQSUVWXZ", "METALWORKINGSBCDFHJPQUVXYZ", "MULTIBRANCHEDFGJKOPQSVWXYZ", "TROUBLEMAKINGCDFHJPQSVWXYZ", "UNPREDICTABLYFGHJKMOQSVWXZ" }, new string[8] { "BFGHJKPQSVWXZDOCUMENTARILY", "BCDJKPQSUVXYZFLAMETHROWING", "BDEJKMPQUVXYZFLOWCHARTINGS", "BFJKLPQSUVWXZHYDROMAGNETIC", "BCDFHJPQUVXYZMETALWORKINGS", "FGJKOPQSVWXYZMULTIBRANCHED", "CDFHJPQSVWXYZTROUBLEMAKING", "FGHJKMOQSVWXZUNPREDICTABLY" } }
+                                                     ,  new string[2][] { new string[8] { "DOCUMENTARILYZXWVSQPKJHGFB", "FLAMETHROWINGZYXVUSQPKJDCB", "FLOWCHARTINGSZYXVUQPMKJEDB", "HYDROMAGNETICZXWVUSQPLKJFB", "METALWORKINGSZYXVUQPJHFDCB", "MULTIBRANCHEDZYXWVSQPOKJGF", "TROUBLEMAKINGZYXWVSQPJHFDC", "UNPREDICTABLYZXWVSQOMKJHGF" }, new string[8] { "ZXWVSQPKJHGFBDOCUMENTARILY", "ZYXVUSQPKJDCBFLAMETHROWING", "ZYXVUQPMKJEDBFLOWCHARTINGS", "ZXWVUSQPLKJFBHYDROMAGNETIC", "ZYXVUQPJHFDCBMETALWORKINGS", "ZYXWVSQPOKJGFMULTIBRANCHED", "ZYXWVSQPJHFDCTROUBLEMAKING", "ZXWVSQOMKJHGFUNPREDICTABLY" } } };
     private string[][] playkeys = new string[2][] { new string[8] { "ALGORITHMS", "AUTHORIZED", "BLUEPRINTS", "DESPICABLY", "FORMIDABLE", "HYPERBOLIC", "IMPORTANCE", "LABYRINTHS" }
                                                   , new string[8] { "WANDERLUST", "VANQUISHED", "ULTRASONIC", "SCRAMBLING", "PRECAUTION", "OSTRACIZED", "METHODICAL", "MAGNITUDES"} };
     private string[][] squarekeys = new string[2][] { new string[8] { "AFTERSHOCK", "DESTROYING", "DUPLICATES", "FARSIGHTED", "GRACIOUSLY", "INFAMOUSLY", "NIGHTMARES", "PALINDROME" }, new string[8] { "DOWNSTREAM", "EMORDNILAP", "FLASHPOINT", "INTRODUCES", "PATHFINDER", "QUADRICEPS", "TRAPEZOIDS", "WAVERINGLY"} };
@@ -32,6 +32,7 @@ public class UltimateCycleScript : MonoBehaviour
     private string[] ciphers = { "an Atbash Logic", "a Caesar", "a Playfair", "a Pigpen", "a Two Square", "a Substitution", "a Hill", "a Bitshift" };
     private string[] ciphkeys = new string[5];
     private bool[] ledlit = new bool[8];
+    List<string> litleds = new List<string> { };
     private bool uniqport = false;
     private bool evenbatt = false;
     private bool litplus = false;
@@ -154,6 +155,7 @@ public class UltimateCycleScript : MonoBehaviour
     {
 
         StopAllCoroutines();
+        litleds.Clear();
         for(int i = 0; i < 8; i++)
         {
             leds[i].material = ledmat[0];
@@ -186,6 +188,7 @@ public class UltimateCycleScript : MonoBehaviour
                 if (Random.Range(0, 2) == 1)
                 {
                     ledlit[i] = true;
+                    litleds.Add((i + 1).ToString());
                 }
                 else
                 {
@@ -222,6 +225,7 @@ public class UltimateCycleScript : MonoBehaviour
             {
                 for (int j = 0; j < 2; j++)
                 {
+                    Debug.Log(ciphertext[j][i] + "  " + rot[0][i]);
                     switch (rot[0][i])
                     {
                         case 0:
@@ -287,7 +291,7 @@ public class UltimateCycleScript : MonoBehaviour
                                 }
                                 else
                                 {
-                                    ciph[j][i].Add("ABCDEFGHIJKLMNOPQRSTUVWXYZ"[("ABCDEFGHIJKLMNOPQRSTUVWXYZ".IndexOf(ciphertext[j][i][k]) + 26 - rot[0][k] + i + 1) % 26].ToString());
+                                    ciph[j][i].Add("ABCDEFGHIJKLMNOPQRSTUVWXYZ"[("ABCDEFGHIJKLMNOPQRSTUVWXYZ".IndexOf(ciphertext[j][i][k]) + 26 + rot[0][k] - i - 1) % 26].ToString());
                                 }
                             }
                             break;
@@ -425,14 +429,14 @@ public class UltimateCycleScript : MonoBehaviour
                                     {
                                         isx[k] = 1;
                                         isdouble[k] = true;
-                                        digraphs[j][k] = ciphertext[j][i][2 * k + 1].ToString() + ciphertext[j][i][2 * k + 1];                                        
+                                        digraphs[j][k] = ciphertext[j][i][2 * k + 1].ToString() + ciphertext[j][i][2 * k + 1].ToString();                                        
 
                                     }
                                     else if (ciphertext[j][i][2 * k + 1] == 'X')
                                     {
                                         isx[k] = 2;
                                         isdouble[k] = true;
-                                        digraphs[j][k] = ciphertext[j][i][2 * k].ToString() + ciphertext[j][i][2 * k];
+                                        digraphs[j][k] = ciphertext[j][i][2 * k].ToString() + ciphertext[j][i][2 * k].ToString();
                                     }
                                     else
                                     {
@@ -601,18 +605,18 @@ public class UltimateCycleScript : MonoBehaviour
                                     issqx[k] = (ciphertext[j][i].IndexOf('X') % 2) + 1;
                                     if (issqx[k] == 1)
                                     {
-                                        sqgraphs[j][k] = ciphertext[j][i][2 * k + 1].ToString() + ciphertext[j][i][2 * k + 1];
+                                        sqgraphs[j][k] = ciphertext[j][i][2 * k + 1].ToString() + ciphertext[j][i][2 * k + 1].ToString();
                                     }
                                     else
                                     {
-                                        sqgraphs[j][k] = ciphertext[j][i][2 * k].ToString() + ciphertext[j][i][2 * k];
+                                        sqgraphs[j][k] = ciphertext[j][i][2 * k].ToString() + ciphertext[j][i][2 * k].ToString();
                                     }
                                 }
                                 else
                                 {
                                     sqgraphs[j][k] = ciphertext[j][i][2 * k].ToString() + ciphertext[j][i][2 * k + 1].ToString();
                                 }
-                                
+                                Debug.Log(sqgraphs[j][k]);
                             }
                             for(int k = 0; k < 4; k++)
                             {
@@ -710,6 +714,7 @@ public class UltimateCycleScript : MonoBehaviour
             string logkey;
             string litciph;
             Debug.LogFormat("[Ultimate Cycle #{0}]The dial rotations were {1}", moduleID, string.Join(", ", roh));
+            Debug.LogFormat("[Ultimate Cycle #{0}]The lit LEDs were {1}", moduleID, string.Join(", ", litleds.ToArray()));
             for (int i = 0; i < 8; i++)
             {
                 switch (rot[0][7 - i])
