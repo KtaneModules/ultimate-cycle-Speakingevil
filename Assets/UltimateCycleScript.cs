@@ -912,7 +912,7 @@ public class UltimateCycleScript : MonoBehaviour
         }
     }
 #pragma warning disable 414
-    private string TwitchHelpMessage = "!{0} QWERTYUI [Inputs letters] | !{0} cancel [Deletes inputs]";
+    private string TwitchHelpMessage = "!{0} <A-Z> [Inputs letters] | !{0} cancel [Deletes inputs]";
 #pragma warning restore 414
     IEnumerator ProcessTwitchCommand(string command)
     {
@@ -924,13 +924,14 @@ public class UltimateCycleScript : MonoBehaviour
         }
         else
         {
-            yield return null;
             command = command.ToUpperInvariant();
-            var word = Regex.Match(command, @"^\s*([A-Z\-]+)\s*$");
+            var word = Regex.Match(command, @"^\s*([A-Z]+)\s*$");
             if (!word.Success)
             {
+                yield return "sendtochaterror \"" + command + "\" is an invalid command";
                 yield break;
             }
+            yield return null;
             command = command.Replace(" ", string.Empty);
             foreach (char letter in command)
             {
